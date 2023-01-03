@@ -1,2 +1,4 @@
-package setup;public class Player {
+package setup;
+
+public class Player {
 }
