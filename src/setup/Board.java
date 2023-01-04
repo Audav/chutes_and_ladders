@@ -1,8 +1,7 @@
 package setup;
 
-import setup.tiles.Chute;
-import setup.tiles.Ladder;
 import setup.tiles.Tile;
+import setup.tiles.TileConfig;
 
 import java.util.ArrayList;
 
@@ -11,17 +10,16 @@ public class Board {
     private ArrayList<Tile> board;
 
     public Board() {
-        board = new ArrayList<>();
-        addTiles();
+        board = initializeBoard();
     }
 
-    private void addTiles() {
-        board.add(new Tile(1));
-        board.add(new Tile(2));
-        board.add(new Ladder(3, 2));
-        board.add(new Chute(4, 2));
-        board.add(new Tile(5));
-        board.add(new Tile(6));
+    public ArrayList<Tile> getBoard() {
+        return board;
+    }
+
+    private ArrayList<Tile> initializeBoard() {
+        TileConfig newBoard = new TileConfig();
+        return newBoard.getTileList();
     }
 
     @Override

@@ -8,7 +8,7 @@ import java.util.Scanner;
  * @author Josh Archer, edited by Aubrey Davies
  * @version 2.0
  */
-public class Console
+public class InputConsole
 {
 	private static Scanner console = new Scanner(System.in);
 
