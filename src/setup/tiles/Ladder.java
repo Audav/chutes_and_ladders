@@ -19,6 +19,6 @@ public class Ladder extends Tile {
 
     @Override
     public String toString() {
-        return "tile: " + getTileNumber() + ", climb: " + climb;
+        return "ladder: " + getTileNumber() + ", climb to: " + climb;
     }
 }

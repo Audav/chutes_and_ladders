@@ -10,6 +10,10 @@ public class Player {
         currentLocation = 0;
     }
 
+    public String getPlayerName() {
+        return playerName;
+    }
+
     public int getCurrentLocation() {
         return currentLocation;
     }

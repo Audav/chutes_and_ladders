@@ -1,5 +1,7 @@
 package setup;
 
+import setup.tiles.Chute;
+import setup.tiles.Ladder;
 import setup.tiles.Tile;
 import setup.tiles.TileConfig;
 
@@ -15,6 +17,20 @@ public class Board {
 
     public ArrayList<Tile> getBoard() {
         return board;
+    }
+
+    public Tile getTile(int tileNumber) {
+        return board.get(tileNumber - 1);
+    }
+
+    public int getSlide(int tileNumber) {
+        Chute tempChute = (Chute) board.get(tileNumber - 1);
+        return tempChute.getSlide();
+    }
+
+    public int getClimb(int tileNumber) {
+        Ladder tempLadder = (Ladder) board.get(tileNumber - 1);
+        return tempLadder.getClimb();
     }
 
     private ArrayList<Tile> initializeBoard() {

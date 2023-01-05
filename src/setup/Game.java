@@ -1,5 +1,7 @@
 package setup;
 
+import setup.tiles.Chute;
+import setup.tiles.Ladder;
 import setup.tiles.Tile;
 
 import console.InputConsole;
@@ -8,17 +10,11 @@ import java.util.ArrayList;
 public class Game {
 
     private ArrayList<Player> playerList = new ArrayList<>();
-    private ArrayList<Tile> board = new ArrayList<>();
+    private Board board = new Board();
+    Dice die = new Dice();
 
     public Game() {
-        Dice die = new Dice();
-        initializeBoard();
-        playerCount();
-    }
-
-    private void initializeBoard() {
-        Board newBoard = new Board();
-        board = newBoard.getBoard();
+        gameLoop();
     }
 
     public void playerCount() {
@@ -35,5 +31,39 @@ public class Game {
             selection = InputConsole.getInt("Invalid input. Please re-enter: "); //get user's menu selection again
         }
         return selection;
+    }
+
+    public void gameLoop() {
+        boolean winCondition = false;
+        int roll;
+        playerCount();
+        while (!winCondition) {
+            for (int i = 0; i < playerList.size(); i++) {
+                System.out.println();
+                System.out.println(playerList.get(i).getPlayerName() + "'s turn!");
+                roll = die.rollDice();
+                System.out.println(playerList.get(i).getPlayerName() + " rolled a " + roll);
+                playerList.get(i).setCurrentLocation(playerList.get(i).getCurrentLocation() + roll);
+                System.out.println(playerList.get(i).getPlayerName() + " landed on tile " + playerList.get(i).getCurrentLocation());
+                if (board.getTile(playerList.get(i).getCurrentLocation()) instanceof Chute) {
+                    System.out.println("Tile " + playerList.get(i).getCurrentLocation() + " is a chute!");
+                    playerList.get(i).setCurrentLocation(board.getSlide(playerList.get(i).getCurrentLocation()));
+                    System.out.println(playerList.get(i).getPlayerName() + " slid down to tile " + playerList.get(i).getCurrentLocation());
+                }
+                if (board.getTile(playerList.get(i).getCurrentLocation()) instanceof Ladder) {
+                    System.out.println("Tile " + playerList.get(i).getCurrentLocation() + " is a ladder!");
+                    playerList.get(i).setCurrentLocation(board.getClimb(playerList.get(i).getCurrentLocation()));
+                    System.out.println(playerList.get(i).getPlayerName() + " climbed up to tile " + playerList.get(i).getCurrentLocation());
+                }
+                if (isGameOver(playerList.get(i))) {
+                    winCondition = true;
+                    break;
+                }
+            }
+        }
+    }
+
+    private boolean isGameOver(Player currentPlayer) {
+        return currentPlayer.getCurrentLocation() >= 100;
     }
 }

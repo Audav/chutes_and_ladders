@@ -19,6 +19,6 @@ public class Chute extends Tile {
 
     @Override
     public String toString() {
-        return "tile: " + getTileNumber() + ", slide: " + slide;
+        return "chute: " + getTileNumber() + ", slide to: " + slide;
     }
 }
