@@ -31,7 +31,7 @@ public class Game {
         int count = InputConsole.getInt();
         count = threeMenu(count);
         for (int i = 1; i < count + 1; i++) {
-            playerList.add(new Player("Player " + i));
+            playerList.add(new Player("Player " + i, i));
         }
     }
 
@@ -74,8 +74,18 @@ public class Game {
         int roll = die.rollDice();
         System.out.println(playerList.get(tileNum).getPlayerName() + " rolled a " + roll);
         playerList.get(tileNum).setCurrentLocation(playerList.get(tileNum).getCurrentLocation() + roll);
+        pastTheEnd(tileNum, playerList.get(tileNum));
         System.out.println(playerList.get(tileNum).getPlayerName() +
                 " landed on tile " + playerList.get(tileNum).getCurrentLocation());
+    }
+
+    /**
+     * check if a player has moved past 100 and set their location back to 100
+     */
+    private void pastTheEnd(int tileNum, Player currentPlayer) {
+        if (currentPlayer.getCurrentLocation() > 100) {
+            playerList.get(tileNum).setCurrentLocation(100);
+        }
     }
 
     /**
